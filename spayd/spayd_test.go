@@ -59,6 +59,25 @@ func TestOtherParams(t *testing.T) {
 	)
 }
 
+func TestDateParams(t *testing.T) {
+	p := spayd.NewSpaydPayment()
+	p.SetIBAN("CZ5855000000001265098001")
+	p.SetDate(time.Date(2021, 6, 1, 0, 0, 0, 0, time.UTC))
+	p.SetPaymentType("P2P")
+	p.SetSenderReference("111")
+	p.SetMessage("M")
+	p.SetRecipientName("go")
+	p.SetNofificationType('E')
+	p.SetNotificationValue("daniel@milde.cz")
+
+	s, _ := p.GenerateString()
+	assert.Equal(
+		t,
+		"SPD*1.0*ACC:CZ5855000000001265098001*RF:111*RN:GO*DT:20210601*MSG:M*PT:P2P*NT:E*NT:DANIEL@MILDE.CZ*",
+		s,
+	)
+}
+
 func TestExtended(t *testing.T) {
 	p := spayd.NewSpaydPayment()
 	p.SetIBAN("CZ5855000000001265098001")

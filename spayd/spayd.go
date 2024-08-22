@@ -84,8 +84,7 @@ func (s *SpaydPayment) GenerateString() (string, error) {
 	}
 
 	if s.Date.Year() > 1 {
-		year, month, day := s.Date.Date()
-		res.WriteString(fmt.Sprintf("DT:%4d%d%d*", year, month, day))
+		res.WriteString(fmt.Sprintf("DT:%s*", s.Date.Format("20060102")))
 	}
 
 	if s.Msg != "" {
